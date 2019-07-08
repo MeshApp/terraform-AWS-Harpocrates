@@ -95,12 +95,14 @@ resource "aws_kms_key" "kms-key" {
       "Resource": "*"
     }
   ]
-}EOF
+}
+EOF
 
   #   deletion_window_in_days = 7
 }
 
 resource "aws_kms_alias" "kms-key-alias" {
-  name          = "alias/${var.kms_alias_prefix}-${random_pet.random_pet.id}"
-  target_key_id = "${aws_kms_key.kms-key.key_id}"
+  name = "alias/${var.kms_alias_prefix}-${random_pet.random_pet.id}"
+  target_key_id = aws_kms_key.kms-key.key_id
 }
+

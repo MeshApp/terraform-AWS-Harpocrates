@@ -34,14 +34,14 @@ data "aws_iam_policy_document" "ssm-read-policy-document" {
     ]
 
     resources = [
-      "${aws_kms_key.kms-key.arn}",
+      aws_kms_key.kms-key.arn,
     ]
   }
 }
 
 resource "aws_iam_policy" "STS-policy-SSM-read" {
   name   = "STS-SSM-read-${var.ssm_prefix}-${random_pet.random_pet.id}"
-  policy = "${data.aws_iam_policy_document.ssm-read-policy-document.json}"
+  policy = data.aws_iam_policy_document.ssm-read-policy-document.json
 }
 
 data "aws_iam_policy_document" "ssm-manage-policy-document" {
@@ -81,12 +81,13 @@ data "aws_iam_policy_document" "ssm-manage-policy-document" {
     ]
 
     resources = [
-      "${aws_kms_key.kms-key.arn}",
+      aws_kms_key.kms-key.arn,
     ]
   }
 }
 
 resource "aws_iam_policy" "STS-policy-SSM-manage" {
   name   = "STS-SSM-manage-${var.ssm_prefix}-${random_pet.random_pet.id}"
-  policy = "${data.aws_iam_policy_document.ssm-manage-policy-document.json}"
+  policy = data.aws_iam_policy_document.ssm-manage-policy-document.json
 }
+

@@ -17,3 +17,4 @@ variable "kms_alias_prefix" {
 variable "ssm_prefix" {
   description = "Prefix for SSM parameters"
 }
+

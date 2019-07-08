@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "kms-policy-document-manage" {
 ## policies for EC2/ECS to access  KMS
 resource "aws_iam_policy" "STS-policy-KMS-manage" {
   name   = "STS-KMS-manage-${var.kms_alias_prefix}-${random_pet.random_pet.id}"
-  policy = "${data.aws_iam_policy_document.kms-policy-document-manage.json}"
+  policy = data.aws_iam_policy_document.kms-policy-document-manage.json
 }
 
 ## grats access to Read KMS
@@ -27,5 +27,6 @@ data "aws_iam_policy_document" "kms-policy-document-read" {
 ## policies for EC2/ECS to access  KMS
 resource "aws_iam_policy" "STS-policy-KMS-read" {
   name   = "STS-KMS-read-${var.kms_alias_prefix}-${random_pet.random_pet.id}"
-  policy = "${data.aws_iam_policy_document.kms-policy-document-read.json}"
+  policy = data.aws_iam_policy_document.kms-policy-document-read.json
 }
+

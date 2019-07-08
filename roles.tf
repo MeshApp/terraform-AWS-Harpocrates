@@ -14,27 +14,27 @@ data "aws_iam_policy_document" "sts" {
 ######
 resource "aws_iam_role" "kms-admin" {
   name               = "KMS-admin-${var.kms_alias_prefix}-${random_pet.random_pet.id}"
-  assume_role_policy = "${data.aws_iam_policy_document.sts.json}"
+  assume_role_policy = data.aws_iam_policy_document.sts.json
 }
 
 resource "aws_iam_role" "kms-manage" {
   name               = "KMS-manage-${var.kms_alias_prefix}-${random_pet.random_pet.id}"
-  assume_role_policy = "${data.aws_iam_policy_document.sts.json}"
+  assume_role_policy = data.aws_iam_policy_document.sts.json
 }
 
 resource "aws_iam_role_policy_attachment" "kms-manage-attach" {
-  role       = "${aws_iam_role.kms-manage.name}"
-  policy_arn = "${aws_iam_policy.STS-policy-KMS-manage.arn}"
+  role       = aws_iam_role.kms-manage.name
+  policy_arn = aws_iam_policy.STS-policy-KMS-manage.arn
 }
 
 resource "aws_iam_role" "kms-read" {
   name               = "KMS-read-${var.kms_alias_prefix}-${random_pet.random_pet.id}"
-  assume_role_policy = "${data.aws_iam_policy_document.sts.json}"
+  assume_role_policy = data.aws_iam_policy_document.sts.json
 }
 
 resource "aws_iam_role_policy_attachment" "kms-read-attach" {
-  role       = "${aws_iam_role.kms-read.name}"
-  policy_arn = "${aws_iam_policy.STS-policy-KMS-read.arn}"
+  role       = aws_iam_role.kms-read.name
+  policy_arn = aws_iam_policy.STS-policy-KMS-read.arn
 }
 
 ######
@@ -42,22 +42,22 @@ resource "aws_iam_role_policy_attachment" "kms-read-attach" {
 ######
 resource "aws_iam_role" "ssm-read" {
   name               = "SSM-read-${var.ssm_prefix}-${random_pet.random_pet.id}"
-  assume_role_policy = "${data.aws_iam_policy_document.sts.json}"
+  assume_role_policy = data.aws_iam_policy_document.sts.json
 }
 
 resource "aws_iam_role_policy_attachment" "ssm-read-role-attach" {
-  role       = "${aws_iam_role.ssm-read.name}"
-  policy_arn = "${aws_iam_policy.STS-policy-SSM-read.arn}"
+  role       = aws_iam_role.ssm-read.name
+  policy_arn = aws_iam_policy.STS-policy-SSM-read.arn
 }
 
 resource "aws_iam_role" "ssm-manage" {
   name               = "SSM-manage-${var.ssm_prefix}-${random_pet.random_pet.id}"
-  assume_role_policy = "${data.aws_iam_policy_document.sts.json}"
+  assume_role_policy = data.aws_iam_policy_document.sts.json
 }
 
 resource "aws_iam_role_policy_attachment" "ssm-manage-role-attach" {
-  role       = "${aws_iam_role.ssm-manage.name}"
-  policy_arn = "${aws_iam_policy.STS-policy-SSM-manage.arn}"
+  role       = aws_iam_role.ssm-manage.name
+  policy_arn = aws_iam_policy.STS-policy-SSM-manage.arn
 }
 
 ######
@@ -77,11 +77,11 @@ data "aws_iam_policy_document" "ecs-service-policy" {
 resource "aws_iam_role" "ecs-service-read-role" {
   name               = "ecs-service-ssm-read-${var.kms_alias_prefix}-${random_pet.random_pet.id}"
   path               = "/"
-  assume_role_policy = "${data.aws_iam_policy_document.ecs-service-policy.json}"
+  assume_role_policy = data.aws_iam_policy_document.ecs-service-policy.json
 }
 
 resource "aws_iam_role_policy_attachment" "ecs-service-role-attachment" {
-  role       = "${aws_iam_role.ecs-service-read-role.name}"
+  role       = aws_iam_role.ecs-service-read-role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole"
 }
 
@@ -102,5 +102,6 @@ data "aws_iam_policy_document" "ec2-policy" {
 resource "aws_iam_role" "ec2-read-role" {
   name               = "ec2-ssm-read-${var.kms_alias_prefix}-${random_pet.random_pet.id}"
   path               = "/"
-  assume_role_policy = "${data.aws_iam_policy_document.ec2-policy.json}"
+  assume_role_policy = data.aws_iam_policy_document.ec2-policy.json
 }
+
