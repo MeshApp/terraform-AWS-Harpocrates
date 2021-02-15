@@ -7,6 +7,7 @@ data "aws_iam_policy_document" "ssm-read-policy-document" {
 
     actions = [
       "ssm:DescribeParameters",
+      "ssm:GetParametersByPath",
     ]
 
     resources = [
@@ -50,6 +51,7 @@ data "aws_iam_policy_document" "ssm-manage-policy-document" {
 
     actions = [
       "ssm:DescribeParameters",
+      "ssm:GetParametersByPath",
     ]
 
     resources = [
